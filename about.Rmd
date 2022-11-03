@@ -1,0 +1,7 @@
+---
+title: "About"
+---
+
+### Academic and Professional Experience
+
+<img src = "image/CV.png" style = "width:100%">

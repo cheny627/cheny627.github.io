@@ -1,0 +1,16 @@
+name: "Yay internet!"
+output_dir: "."
+navbar:
+  title: "Home"
+  right:
+    - text: "About"
+      href: about.html
+    - icon: fa-envelope fa-lg
+      href: mailto:<yc4198@cumc.columbia.edu>
+    - icon: fa-github fa-lg
+      href: http://github.com/cheny627/
+    - icon: fa-brands fa-linkedin
+      href: https://www.linkedin.com/in/yining-chen-88a38020b/
+
+output:
+  html_document

@@ -1,0 +1,14 @@
+---
+title: "Yining Chen's Personal Portfolio Website"
+output: 
+  html_document:
+    toc: true
+    toc_float: true
+    theme: journal
+---
+
+# About Me
+
+A current graduate student studying at Columbia University pursuing Master of Science Degree at field of Biostatistics. Highly interested in statistical methodology in the medicine research. I am especially a health data enthusiast, I have completed my undergraduate with Honours Bachelor of Science at University of Toronto. Would like to become a statistical researcher or biostatistician working in the health sector or pharmaceutical factory. 
+
+<img src = "image/1102_1.jpg" style = "width:25%">
