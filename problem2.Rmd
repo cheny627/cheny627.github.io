@@ -1,0 +1,75 @@
+---
+title: "NY NOAA Dashboard"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: columns
+    vertical_layout: fill
+---
+
+```{r setup, include=FALSE}
+library(flexdashboard)
+library(p8105.datasets)
+library(plotly)
+library(tidyverse)
+library(ggplot2)
+library(ggridges)
+```
+
+```{r,include=FALSE}
+data("ny_noaa")
+
+ny_noaa<- ny_noaa %>%
+  separate(col=date, into=c('year', 'month','day'), sep='-') %>% 
+  mutate( 
+    tmax = as.numeric(tmax) / 10, 
+    tmin = as.numeric(tmin) / 10,
+    prcp= prcp/10,
+    year = as.numeric(year), 
+    snow_mm = snow,
+         snow = round(snow_mm*0.03937*4)/4)
+
+tmax_avg <- ny_noaa%>% 
+  drop_na(tmax)%>%
+  group_by(id, year,month) %>% 
+  summarize(mean_tmax = mean(tmax))
+```
+
+Column {data-width=650}
+-----------------------------------------------------------------------
+
+### Chart A
+
+```{r}
+fig1 <- tmax_avg %>%
+  filter(year == 2010,id== "USC00300023")%>%
+  plot_ly(x = ~month, y = ~mean_tmax,  type = 'scatter', mode = 'lines',
+         width = 4)
+
+fig1 %>% layout(title="Lineplot of Maximum Averge Temperature in 2010 (ID: USC00300023)",yaxis = list(title="Temperature"),xaxis=list(title="Month"))
+```
+
+Column {data-width=450}
+-----------------------------------------------------------------------
+
+### Chart B
+
+```{r}
+fig2 <- tmax_avg %>%
+  plot_ly(
+    x = ~year, y = ~mean_tmax, type = "scatter", mode = "markers",
+    color = ~month,alpha = 0.5)
+
+fig2 %>% layout(title="Scatterplot of Maximum Avergae Temperature Each Year",yaxis = list(title="Temperature"),xaxis=list(title="Year"))
+```
+
+### Chart C
+
+```{r}
+fig3 <-ny_noaa%>% 
+  drop_na(prcp)%>%
+  mutate(month=as.factor(month))%>%
+  plot_ly(y = ~prcp, color = ~month, type = "box", colors = "viridis")
+
+fig3 %>% layout(title="Boxplot of Precipitation(mm) in Each Month",yaxis = list(title="Precipitation(mm)",range=c(0,10)),xaxis=list(title="Month"))
+```
+
